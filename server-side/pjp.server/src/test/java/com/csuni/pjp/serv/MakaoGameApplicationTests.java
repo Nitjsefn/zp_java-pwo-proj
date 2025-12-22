@@ -1,10 +1,10 @@
-package com.csuni.pjp.server;
+package com.csuni.pjp.serv;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class MakaoGameApplicationTests {
 
 	@Test
 	void contextLoads() {
