@@ -1,0 +1,95 @@
+        ListView<CardModel> hand = new ListView<CardModel>();
+        hand.setOrientation(Orientation.HORIZONTAL);
+        hand.setItems(viewModel.cards);
+        hand.setCellFactory(param -> new HandListCell(viewModel));
+        hand.setMaxHeight(200);
+        hand.setMinWidth(600);
+
+
+
+
+        ListView<CardRankEnum> cardRanksListView = new ListView<CardRankEnum>();
+        cardRanksListView.setOrientation(Orientation.HORIZONTAL);
+        cardRanksListView.setItems(viewModel.cardRankEnums);
+        cardRanksListView.setCellFactory(param -> new CardRanksListCell(viewModel));
+
+        ListView<CardSuitEnum> cardSuitsListView = new ListView<CardSuitEnum>();
+        cardSuitsListView.setOrientation(Orientation.HORIZONTAL);
+        cardSuitsListView.setItems(viewModel.cardSuitEnums);
+        cardSuitsListView.setCellFactory(param -> new CardSuitsListCell(viewModel));
+
+
+
+
+
+
+class HandListCell extends ListCell<CardModel> {
+    private ImageView imageView = new ImageView();
+    private GameViewModel vm;
+
+
+    public HandListCell(GameViewModel vm) {
+        super();
+        this.vm = vm;
+        this.imageView.setScaleX(0.4);
+        this.imageView.setScaleY(0.4);
+        setOnMouseClicked(event -> vm.placeAction(getItem()));
+    }
+    
+    @Override
+    public void updateItem(CardModel name, boolean empty) {
+        super.updateItem(name, empty);
+        if(empty) {
+            setText(null);
+            setGraphic(null);
+        }
+        else {
+            imageView.setImage(vm.cardImages.getCardImages().get(name.getSuit()).get(name.getRank()));
+            setGraphic(imageView);
+        }
+    }
+}
+
+class CardSuitsListCell extends ListCell<CardSuitEnum> {
+    private ImageView imageView = new ImageView();
+
+
+    public CardSuitsListCell(GameViewModel vm) {
+        super();
+        setOnMouseClicked(event -> vm.chooseSuitAction(getItem()));
+    }
+    
+    @Override
+    public void updateItem(CardSuitEnum name, boolean empty) {
+        super.updateItem(name, empty);
+        if(empty) {
+            setText(null);
+            setGraphic(null);
+        }
+        else {
+            setGraphic(imageView);
+        }
+    }
+}
+
+class CardRanksListCell extends ListCell<CardRankEnum> {
+    private ImageView imageView = new ImageView();
+
+
+    public CardRanksListCell(GameViewModel vm) {
+        super();
+        setOnMouseClicked(event -> vm.chooseRankAction(getItem()));
+    }
+    
+    @Override
+    public void updateItem(CardRankEnum name, boolean empty) {
+        super.updateItem(name, empty);
+        if(empty) {
+            setText(null);
+            setGraphic(null);
+        }
+        else {
+            setGraphic(imageView);
+        }
+    }
+}
