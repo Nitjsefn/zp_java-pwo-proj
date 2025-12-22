@@ -1,0 +1,28 @@
+services:
+
+  mysql:
+    image: mysql:8.3
+    container_name: mysql
+    restart: always
+    networks:
+      - backend
+    environment:
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: user
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    container_name: phpmyadmin
+    restart: always
+    networks:
+      - backend
+    depends_on:
+      - mysql
+
+volumes:
+  db_data:
+
+networks:
+  backend:
